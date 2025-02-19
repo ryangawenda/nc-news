@@ -19,3 +19,13 @@ const ncNews = axios.create({
     })
 
   }
+
+
+  export function upVote(article_id){
+    
+    return ncNews.patch(`articles/${article_id}`,{ inc_votes : 1 })
+    .then((response) => {
+      console.log("here")
+      return response
+    })
+  }
