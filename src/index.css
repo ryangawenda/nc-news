@@ -8,7 +8,6 @@
   overflow: hidden;
 }
 
-
 .article-title {
   color: white;
   font-size: 1.8em;
@@ -17,12 +16,20 @@
   margin-bottom: 10px;
 }
 
-
 .article-date {
   padding: 8px 12px;
   border-radius: 8px;
   margin: 0 5px;
-  background-color: rgba(0, 0, 0, 1);
+  background-color: rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+.article-body {
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin: 0 5px;
+  background-color: rgba(252, 252, 252, 0.2);
+  color: white;
 }
 
 .article-votes {
@@ -33,7 +40,6 @@
   color: white;
 }
 
-
 .article-list li {
   padding: 15px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -41,7 +47,6 @@
   background-color: rgba(0, 2, 85, 0.1);
   transition: background-color 0.3s;
 }
-
 
 .article-list li:hover {
   background-color: rgba(101, 104, 240, 0.3);
@@ -56,7 +61,6 @@
   background-color: rgba(0, 0, 0, 0.2);
   font-size: 0.9em;
   display: flexbox;
-
 }
 
 .article-author {
@@ -68,5 +72,4 @@
   background-color: rgb(255, 255, 255);
   font-size: 2em;
   display: flexbox;
-
 }

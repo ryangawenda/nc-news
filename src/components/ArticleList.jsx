@@ -1,20 +1,38 @@
-export default function ArticleList({articleList, setArticleList}) {
-    return (
-        <div>
-            <ul className="article-list">
-                {articleList.map((article) => {
-                    return (
-                        <li key={article} className="article">
-                            <h2 className="article-author">{article.author}</h2>
-                            <img src={article.article_img_url} ></img>
-                            <button className="article-votes">{article.votes}</button>
-                            <p className="article-title">{article.title}</p>
-                            <p className="article-topic">{article.topic}</p>                           
-                             <p className="article-date">{(article.created_at).substring(11,16)} - {(article.created_at).substring(0,10)}</p>
-                        </li>
-                    )
-                })}
-            </ul>
-        </div>
-    )
+import { Link } from "react-router-dom"; 
+import ArticleCard from "./ArticleCard";
+import { useEffect, useState } from 'react'
+import getArticles from "../api";
+
+export default function ArticleList() {
+    const [articleList, setArticleList] = useState([])
+    const [loading, setLoading] = useState(true)
+  useEffect(() => {
+    getArticles().then((articles) => {
+      setArticleList(articles);
+    })
+    .finally(() => {
+      setLoading(false)
+    })
+  }, [])
+
+  if (loading){
+    return <div>Loading...</div>;
+  }
+  return (
+    <div>
+      <ul className="article-list">
+        {articleList.map((article) => {
+          return (
+            <li key={article.article_id} className="article"> 
+{             
+}              <Link to={`/articles/${article.article_id}`}
+              state={{article}} > 
+                <ArticleCard article={article} /> 
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
 }
