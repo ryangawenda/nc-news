@@ -1,9 +1,8 @@
 import { Link, useLocation, useParams } from "react-router";
-import { getArticle } from "../api";
+import { getArticle, upVote } from "../api";
 import React, { useEffect, useState } from "react";
 
 export default function ArticleCard({ article : passedArticle }) {
-  
   let { article_id } = useParams();
   const [loading, setLoading] = useState(true);
   const [article, setArticle] = useState(passedArticle)
@@ -33,17 +32,27 @@ export default function ArticleCard({ article : passedArticle }) {
         setLoading(false);
       });
 }
-, [article]);
-
+, [article_id, passedArticle]);
   if (loading) {
     return <div>Loading...</div>;
   }
 
+  const handleUpvote = () => {
+    upVote(article_id).then(() => {
+      setArticle((prevArticle) => ({
+        ...prevArticle,
+        votes: prevArticle.votes + 1, 
+      }));
+    });
+  };
   return (
+    
     <div className="article-list">
       <h2 className="article-author">{article.author}</h2>
       <img src={article.article_img_url}></img>
-      <button className="article-votes">{article.votes}</button>
+      {articlePage && (
+  <button className="article-votes" onClick= {handleUpvote}>{article.votes}</button>
+)}
       <p className="article-title">{article.title}</p>
       <p className="article-body">{articlePage ? article.body : "" }</p>
       <p className="article-topic">{article.topic}</p>
