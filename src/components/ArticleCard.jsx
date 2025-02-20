@@ -1,12 +1,15 @@
 import { Link, useLocation, useParams } from "react-router";
-import { getArticle, upVote } from "../api";
+import { getArticle, upVote,getComments } from "../api";
 import React, { useEffect, useState } from "react";
+import Comments from "./Comments";
+
 
 export default function ArticleCard({ article : passedArticle }) {
   let { article_id } = useParams();
   const [loading, setLoading] = useState(true);
   const [article, setArticle] = useState(passedArticle)
   const [articlePage, setArticlePage] = useState(false)
+  const [comments, setComments] = useState([])
   article_id = article_id * 1;
 
 
@@ -15,13 +18,10 @@ export default function ArticleCard({ article : passedArticle }) {
         setLoading(false)
         return;
     }
-
     if (!article_id) {
       setLoading(false);
       return;
     }
-
-    
     getArticle(article_id)
       .then((article) => {
         setArticlePage(true)
@@ -31,6 +31,16 @@ export default function ArticleCard({ article : passedArticle }) {
       .finally(() => {
         setLoading(false);
       });
+      setLoading(true)
+      getComments(article_id)
+      .then((fetchedComments) => {
+        setLoading(false)
+        setComments(fetchedComments)
+      })
+      ,[]
+
+
+
 }
 , [article_id, passedArticle]);
   if (loading) {
@@ -45,6 +55,8 @@ export default function ArticleCard({ article : passedArticle }) {
       }));
     });
   };
+  
+  
   return (
     
     <div className="article-list">
@@ -60,7 +72,9 @@ export default function ArticleCard({ article : passedArticle }) {
         {article.created_at.substring(11, 16)} -{" "}
         {article.created_at.substring(0, 10)}
       </p>
-
+      {articlePage && (
+      <Comments article_id = {article_id} comments={comments} setComments = {setComments}/>
+      )}
     </div>
   );
 }
