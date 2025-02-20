@@ -16,6 +16,11 @@
   margin-bottom: 10px;
 }
 
+.comments-list {
+  list-style: none;
+  padding-left: 0%;
+}
+
 .article-date {
   padding: 8px 12px;
   border-radius: 8px;

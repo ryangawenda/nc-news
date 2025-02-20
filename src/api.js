@@ -25,7 +25,13 @@ const ncNews = axios.create({
     
     return ncNews.patch(`articles/${article_id}`,{ inc_votes : 1 })
     .then((response) => {
-      console.log("here")
       return response
+    })
+  }
+
+  export function getComments(article_id){
+    return ncNews.get(`articles/${article_id}/comments`)
+    .then((response) => {
+      return response.data.comments
     })
   }
