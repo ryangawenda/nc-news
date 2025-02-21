@@ -31,13 +31,13 @@ export default function ArticleCard({ article : passedArticle }) {
       .finally(() => {
         setLoading(false);
       });
-      setLoading(true)
+      
       getComments(article_id)
       .then((fetchedComments) => {
         setLoading(false)
         setComments(fetchedComments)
       })
-      ,[]
+      ,[article_id]
 
 
 
