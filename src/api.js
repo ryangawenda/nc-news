@@ -35,3 +35,17 @@ const ncNews = axios.create({
       return response.data.comments
     })
   }
+
+  export function postComment(article_id,comment){
+    console.log(typeof comment)
+    console.log(article_id)
+    return ncNews.post(`articles/${article_id}/comments` ,   {
+      username: 'cooljmessy',
+      body : comment
+    } )
+    .then((response) => {
+      console.log(response)
+      return response
+    })
+  }
+
