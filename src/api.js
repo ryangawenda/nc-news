@@ -2,6 +2,7 @@ import axios from "axios";
 
 const ncNews = axios.create({
     baseURL: "https://gawendas-gossip.onrender.com/api/",
+    timeout: 10000
   });
 
   export default function getArticles(){
@@ -37,15 +38,21 @@ const ncNews = axios.create({
   }
 
   export function postComment(article_id,comment){
-    console.log(typeof comment)
-    console.log(article_id)
     return ncNews.post(`articles/${article_id}/comments` ,   {
       username: 'cooljmessy',
       body : comment
     } )
     .then((response) => {
-      console.log(response)
       return response
     })
   }
+
+  export function deleteComment(comment_id){
+    return ncNews.delete(`comments/${comment_id}`)
+    .then(()=>{
+      return "deleted"
+    })
+  }
+
+
 
